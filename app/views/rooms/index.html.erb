@@ -1,0 +1,54 @@
+<div id="user-id" data-user-id="<%= current_user.id %>"></div>
+<div id="room-id" data-room-id="<%= @room.try(:id) %>"></div>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+        <div class="bg-light pt-3">
+        <h6>Logged in as:</h6>
+        <h5 class="font-weight-bold"><%= current_user.username %></h5>
+        <div class="btn-group d-flex">
+        <%= link_to "Edit", "#", class: "btn btn-primary" %>
+        <%= link_to "Logout", "#", class: "btn btn-primary" %>
+        </div>
+        </div>
+
+      <hr>
+      <%= render 'form', room: Room.new %>
+      <hr>
+      <% @rooms.each do |room| %>
+        <%= link_to room, class: "text-decoration-none" do %>
+          <div class="card mb-2 text-dark">
+            <div class="card-header font-weight-bold  <%= @room == room ? "bg-primary text-white" : "" %>">
+              <%= room.name %>
+            </div>
+            <div class="card-body py-2 ">
+              <small class=""><%= room.users.uniq.count %> Memebrs</small>
+              
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-9 border-left">
+      <% if @room.present? %>
+        <div class="chat-room">
+          <nav class="navbar navbar-light bg-light sticky-top mb-3 border-bottom mb-2">
+            <span class="navbar-brand mb-0 h1"><%= @room.name %></span>
+            <div class="navbar-nav"><%= @room.users.uniq.count %> Members</div>
+          </nav>
+          <div id="messages">
+            <% @room.messages.each do |message| %>
+                <%= render 'messages/message', message: message %>
+            <% end %>
+          </div>
+        <div class="chat-box bg-white pb-3">
+        <hr>
+          <%= render 'messages/form', message: Message.new, room: @room %>
+        </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,51 @@
+body {
+::-webkit-scrollbar {
+  display: none;
+  -ms-overflow-style: none;
+}
+
+
+}
+.chat-room {
+  padding-bottom: 100px;
+  height: 100vh;
+  overflow-y: scroll;
+  .message {
+    min-height: 59px;
+    .content-container {
+      display: inline-block;
+      .content {
+        background-color: #eeeeee;
+        padding: 8px 15px;
+        border-radius: 15px;
+      }
+      .author {
+        font-size: 0.7rem;
+        color: #777777;
+        margin-left: 10px;
+      }
+    }
+    &.me {
+      .content-container {
+        float: right;
+        .content {
+          background-color: #007bff;
+          color: white;
+        }
+      }
+    }
+  }
+  .chat-box {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 15px);
+    input[type=text] {
+      height: 45px;
+      font-size: 18px;
+      padding: 8px;
+    }
+    .btn {
+      height: 45px;
+    }
+  }
+}
